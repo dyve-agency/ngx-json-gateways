@@ -1,0 +1,9 @@
+{
+  "name": "ngx-json-gateways",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/zeitdev/ngx-json-gateways",
+  "author": "Marian Theisen <mt@zeit.dev>",
+  "license": "MIT",
+  "private": false
+}
