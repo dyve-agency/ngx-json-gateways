@@ -7,20 +7,12 @@
         "href": "/users",
         "method": "GET",
         "rel": "instances",
-        "schema": {
-          "type": "object",
-          "required": ["id"],
-          "properties": {
-            "id": {
-              "type": "integer"
-            }
-          }
-        },
         "targetSchema": {
           "type": "array",
           "items": {
             "type": "object",
             "required": ["name"],
+            "additionalProperties": false,
             "properties": {
               "id": {
                 "type": "integer"
