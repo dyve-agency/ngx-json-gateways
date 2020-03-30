@@ -4,7 +4,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { API_HOST } from './api-host';
-import { GetResponse } from './get-response';
+import { GetResponse } from './users/get-response';
 @Injectable()
 export class UsersGateway {
   constructor(private readonly _httpClient: HttpClient, @Inject(API_HOST) private readonly _apiHost: string) {}
