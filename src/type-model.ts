@@ -4,6 +4,8 @@ import {HyperSchemaLink4, HyperSchemaResource4} from './types/hyper-schema';
 export interface ResponseTypeDescriptor {
   nameOfClass: string;
   schema: JSONSchema4;
+  resource: HyperSchemaResource4;
+  link: HyperSchemaLink4;
 }
 
 export interface GatewayOperation {

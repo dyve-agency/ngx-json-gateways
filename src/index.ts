@@ -43,6 +43,8 @@ export function buildResponseType(
   return {
     nameOfClass: options.buildResponseClassName(resource, key, link),
     schema: link.targetSchema,
+    resource,
+    link,
   };
 }
 
@@ -80,9 +82,15 @@ export async function generateGatewayFiles(
 
   const files = await generateGateways(hyperSchema, options);
 
-  await Promise.all(files.map((file) => {
-    return fs.writeFile([outDir, ...file.path, file.name + '.ts'].join('/'), file.content, 'utf8');
-  }));
+  for (let file of files) {
+    await writeOutFile(outDir, file);
+  }
+}
+
+export async function writeOutFile(outDir: string, file: FileWithContent): Promise<void> {
+  const path = [outDir, ...file.path].join('/');
+  await fs.mkdir(path, {recursive: true});
+  await fs.writeFile([path, file.name + '.ts'].join('/'), file.content, DEFAULT_ENCODING);
 }
 
 export async function generateGateways(
@@ -134,8 +142,7 @@ export function* buildFileSet(
   generatedClasses: GeneratedCode[],
 ): Generator<FileWithContent> {
   for (const gateway of generatedClasses) {
-    console.log(gateway.dependencies);
-    let targetPath = options.getTargetPath(gateway);
+    const targetPath = options.getTargetPath(gateway);
     yield {
       path: targetPath,
       name: options.buildFileName(gateway.nameOfClass),

@@ -31,7 +31,7 @@ export function httpVerbAndHrefBasedMethodName(
   return [prefix, ...pathToCapitalizedNameParts(localHref)].join();
 }
 
-export function commonHrefBasedClassName(resource: HyperSchemaResource4, key: string): string {
+export function commonHrefBasedClassName(resource: HyperSchemaResource4): string {
   const commonHref = getCommonHref(resource);
   const typeName = pathToCapitalizedNameParts(commonHref).join();
   if (typeName === '') {
@@ -85,6 +85,16 @@ export function allInRoot(generated: GeneratedCode): string[] {
   return [];
 }
 
+export function scopeByResource(generated: GeneratedCode): string[] {
+  switch (generated.type) {
+    case 'code':
+      return [];
+    case 'transfer-object':
+    case 'gateway':
+      return [kebapizedClassName(commonHrefBasedClassName(generated.source.resource)).replace('-gateway', '')];
+  }
+}
+
 export const defaultOptions: GeneratorOptions = {
   json2ts: {
     ...DEFAULT_OPTIONS,
@@ -105,5 +115,5 @@ export const defaultOptions: GeneratorOptions = {
   buildGatewayClassName: commonHrefBasedClassName,
   buildResponseClassName: methodNameBasedResponseTypeName,
   buildFileName: kebapizedClassName,
-  getTargetPath: allInRoot,
+  getTargetPath: scopeByResource,
 };
