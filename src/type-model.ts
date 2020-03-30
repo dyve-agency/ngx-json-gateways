@@ -11,6 +11,7 @@ export interface ResponseTypeDescriptor {
 export interface GatewayOperation {
   readonly nameOfMethod: string;
   readonly href: string;
+  readonly httpVerb: string;
   readonly resource: HyperSchemaResource4;
   readonly key: string;
   readonly link: HyperSchemaLink4;

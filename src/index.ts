@@ -54,6 +54,7 @@ export function buildGatewayOperation(
   link: HyperSchemaLink4,
 ): GatewayOperation {
   const href = assertDefined(link.href, `href missing in ${inspect(link)}`);
+  const httpVerb = assertDefined(link.method, `method missing in ${inspect(link)}`).toLowerCase();
   const nameOfMethod = options.buildOperationMethodName(resource, key, link);
 
   return {
@@ -62,6 +63,7 @@ export function buildGatewayOperation(
     key,
     href,
     nameOfMethod,
+    httpVerb,
     response: buildResponseType(options, resource, key, link),
   };
 }

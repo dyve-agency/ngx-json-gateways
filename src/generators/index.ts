@@ -89,7 +89,7 @@ function generateMethodSource(operation: GatewayOperation): string {
     ): Observable<${returnType}> 
     {
       return this._httpClient.request(
-        ${JSON.stringify(operation.nameOfMethod)},
+        ${JSON.stringify(operation.httpVerb)},
         ${JSON.stringify(operation.href)},
         options,
       );
