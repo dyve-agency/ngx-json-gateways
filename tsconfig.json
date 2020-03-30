@@ -1,0 +1,23 @@
+{
+  "include": [
+    "src/**/*.ts"
+  ],
+  "compilerOptions": {
+    "strict": true,
+    "target": "es2015",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "declaration": true,
+    "typeRoots": [
+      "types",
+      "./node_modules/@types"
+    ],
+    "lib": [
+      "ES2015"
+    ],
+    "types": [
+      "node"
+    ]
+  }
+}

@@ -1,9 +1,26 @@
 {
   "name": "ngx-json-gateways",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "test": "jest"
+  },
   "repository": "https://github.com/zeitdev/ngx-json-gateways",
   "author": "Marian Theisen <mt@zeit.dev>",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "devDependencies": {
+    "@types/jest": "^25.1.4",
+    "@types/json-schema": "^7.0.4",
+    "@types/lodash-es": "^4.17.3",
+    "jest": "^25.2.1",
+    "json-schema": "^0.2.5",
+    "ts-jest": "^25.2.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "json-schema-to-typescript": "^8.2.0",
+    "lodash-es": "^4.17.15"
+  }
 }

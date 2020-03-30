@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-04/hyper-schema",
+  "id": "simple-endpoint-without-refs",
+  "properties": {
+    "get_users": {
+      "links": [{
+        "href": "/users",
+        "method": "GET",
+        "rel": "instances",
+        "schema": {
+          "type": "object",
+          "required": ["id"],
+          "properties": {
+            "id": {
+              "type": "integer"
+            }
+          }
+        },
+        "targetSchema": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }]
+    }
+  }
+}
