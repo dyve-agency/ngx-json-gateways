@@ -1,6 +1,7 @@
 import {compile, Options} from 'json-schema-to-typescript';
 import {GeneratorOptions} from '../options';
 import {GatewayClass, GatewayOperation, ResponseTypeDescriptor} from '../type-model';
+import {relativePath} from '../util/paths';
 
 export interface GeneratedType {
   readonly dependencies: Dependency[];
@@ -65,10 +66,11 @@ export function getImport(options: GeneratorOptions, dependency: Dependency, tar
       return [dependency.name, dependency.source];
     case 'code':
     case 'transfer-object':
-      const path = options.getTargetPath(dependency);
+      const localPath = targetPath.join('/');
       const fileName = options.buildFileName(dependency.nameOfClass);
-      const fullPath = ['.', ...path, fileName].join('/');
-      // TODO: relativize
+      const dependencyPath = [...options.getTargetPath(dependency), fileName].join('/');
+      let fullPath = relativePath(localPath, dependencyPath);
+
       return [dependency.nameOfClass, fullPath];
   }
 }

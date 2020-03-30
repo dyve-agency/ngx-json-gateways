@@ -5,8 +5,7 @@ import {defaultOptions} from './defaults';
 import {
   Dependency,
   generateApiHostInjectionToken,
-  GeneratedAdditional, GeneratedCode,
-  GeneratedGatewayClass,
+  GeneratedCode,
   GeneratedType,
   generateGatewayTypeSource,
   generateImports,
@@ -108,7 +107,7 @@ export async function generateGateways(
     generatedClasses.push(gatewayTypeDef);
 
     for (let operation of gatewayClass.operations) {
-      if(operation.response) {
+      if (operation.response) {
         const responseTypeDef = await generateResponseType(operation.response, options.json2ts);
         generatedClasses.push(responseTypeDef);
         gatewayTypeDef.dependencies.push(responseTypeDef);
@@ -116,11 +115,14 @@ export async function generateGateways(
     }
   }
 
-
   return Array.from(buildFileSet(options, generatedClasses));
 }
 
-export function generateAllImports(options: GeneratorOptions, dependencies: Dependency[], targetPath: string[]): string {
+export function generateAllImports(
+  options: GeneratorOptions,
+  dependencies: Dependency[],
+  targetPath: string[],
+): string {
   return generateImports(
     dependencies.map((dep) => getImport(options, dep, targetPath)),
   );
@@ -147,6 +149,6 @@ export function* buildFileSet(
       path: targetPath,
       name: options.buildFileName(gateway.nameOfClass),
       content: combine(options, gateway, targetPath),
-    }
+    };
   }
 }

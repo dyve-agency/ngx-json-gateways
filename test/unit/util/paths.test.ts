@@ -1,4 +1,4 @@
-import {getCommonPath, stripCommonPath} from '../../../src/util/paths';
+import {getCommonPath, relativePath, stripCommonPath} from '../../../src/util/paths';
 
 describe('getCommonPath', () => {
   test('simple case', () => {
@@ -43,7 +43,41 @@ describe('stripCommonPath', () => {
   test('simple case', () => {
     const stripped = stripCommonPath('/foo/bar/blub', '/foo/bar');
 
-    expect(stripped).toEqual('/blub');
+    expect(stripped).toEqual('blub');
   });
+});
 
+describe('relativePath', () => {
+    test('root', () => {
+      const result = relativePath(
+        'faa',
+        'bum'
+      );
+
+      expect(result).toEqual('../bum')
+    });
+    test('unrelated', () => {
+      const result = relativePath(
+        'faa',
+        'foo/baz/bum'
+      );
+
+      expect(result).toEqual('../foo/baz/bum')
+    });
+    test('nephew', () => {
+      const result = relativePath(
+        'foo',
+        'foo/baz/bum'
+      );
+
+      expect(result).toEqual('./baz/bum')
+    });
+    test('siblings', () => {
+      const result = relativePath(
+        'foo',
+        'foo/baz'
+      );
+
+      expect(result).toEqual('./baz')
+    });
 });

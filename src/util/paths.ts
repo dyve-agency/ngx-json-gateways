@@ -19,9 +19,21 @@ export function getCommonPath(paths: string[]) {
 }
 
 export function stripCommonPath(path: string, commonPath: string): string {
-  if(path.startsWith(commonPath)) {
-    return path.slice(commonPath.length);
+  if(path.startsWith(commonPath + '/')) {
+    return path.slice(commonPath.length + 1);
   }
 
   return path;
+}
+
+
+export function relativePath(from: string, to: string): string {
+  from = from + '/';
+  const commonPath = getCommonPath([from, to]);
+  const fromLevel = stripCommonPath(from, commonPath).split('/').length - 1;
+  const dives = Array(fromLevel).fill('..');
+  to = [...dives, stripCommonPath(to, commonPath)].join('/');
+
+
+  return to.startsWith('../') ? to : './' + to;
 }

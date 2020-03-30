@@ -28,12 +28,12 @@ export function httpVerbAndHrefBasedMethodName(
   const prefix = method.toLocaleLowerCase();
   const localHref = stripCommonPath(href, commonHref);
 
-  return [prefix, ...pathToCapitalizedNameParts(localHref)].join();
+  return [prefix, ...pathToCapitalizedNameParts(localHref)].join('');
 }
 
 export function commonHrefBasedClassName(resource: HyperSchemaResource4): string {
   const commonHref = getCommonHref(resource);
-  const typeName = pathToCapitalizedNameParts(commonHref).join();
+  const typeName = pathToCapitalizedNameParts(commonHref).join('');
   if (typeName === '') {
     throw `can't build type-name for href ${commonHref}`;
   }
@@ -78,7 +78,7 @@ export function methodNameBasedQueryParamsTypeName(
 }
 
 export function kebapizedClassName(nameOfClass: string): string {
-  return paramCase(nameOfClass);
+  return paramCase(nameOfClass).replace(/-(gateway|response|request)/, '.$1');
 }
 
 export function allInRoot(generated: GeneratedCode): string[] {
@@ -91,7 +91,7 @@ export function scopeByResource(generated: GeneratedCode): string[] {
       return [];
     case 'transfer-object':
     case 'gateway':
-      return [kebapizedClassName(commonHrefBasedClassName(generated.source.resource)).replace('-gateway', '')];
+      return [kebapizedClassName(commonHrefBasedClassName(generated.source.resource)).replace('.gateway', '')];
   }
 }
 
