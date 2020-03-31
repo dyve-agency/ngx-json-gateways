@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-04/hyper-schema",
+  "id": "simple-get-with-query-params",
+  "properties": {
+    "get_users": {
+      "links": [{
+        "href": "/users/{id}",
+        "method": "GET",
+        "rel": "instances",
+        "hrefSchema": {
+          "properties": {
+            "id": {
+              "type": "integer"
+            }
+          }
+        },
+        "targetSchema": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }]
+    }
+  }
+}

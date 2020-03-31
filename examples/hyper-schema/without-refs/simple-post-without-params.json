@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/hyper-schema",
+  "id": "simple-post-without-params",
+  "properties": {
+    "post_users": {
+      "links": [{
+        "href": "/users",
+        "method": "POST",
+        "rel": "create",
+        "schema": {
+          "type": "object",
+          "required": ["name"],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          }
+        },
+        "targetSchema": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }]
+    }
+  }
+}

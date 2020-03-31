@@ -6,4 +6,7 @@ module.exports = {
       tsConfig: 'tsconfig.spec.json',
     },
   },
+  watchPathIgnorePatterns: [
+    'tmp\/'
+  ]
 };
