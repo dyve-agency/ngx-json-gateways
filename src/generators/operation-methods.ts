@@ -73,7 +73,7 @@ function createInterpolationParamType(def: JSONSchema4): string {
 }
 
 export function generateOperationMethodSource(operation: GatewayOperation): string {
-  const returnType = `Observable<HttpResponse<${operation.response?.nameOfClass || '{}'}>>`;
+  const returnType = `Observable<HttpResponse<${operation.response?.nameOfClass || 'void'}>>`;
   const httpVerb = JSON.stringify(operation.httpVerb);
   const href = 'this._apiHost + ' + operation.href.typescriptHref;
 
