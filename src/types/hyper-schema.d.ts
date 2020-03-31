@@ -7,6 +7,9 @@ export interface HyperSchemaLink4 {
   schema?: {
     $ref: string;
   } | JSONSchema4;
+  hrefSchema?: {
+    $ref: string;
+  } | JSONSchema4;
   targetSchema?: {
     $ref: string;
   } | JSONSchema4;

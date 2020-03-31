@@ -7,12 +7,13 @@ import {getCommonHref} from './util/hyper-schema';
 import {assertDefined, inspect} from './util/misc';
 import {stripCommonPath} from './util/paths';
 import {capitalize, upperFirst} from './util/strings';
+import {capitalCase} from 'change-case';
 
 export function pathToCapitalizedNameParts(path: string): string[] {
   return path
     .split('/')
     .filter((x) => !!x)
-    .map((x) => capitalize(x.replace(/\W/, '')));
+    .map((x) => capitalCase(x.replace(/[^\w-]/, '')).replace(' ', ''));
 }
 
 export function httpVerbAndHrefBasedMethodName(

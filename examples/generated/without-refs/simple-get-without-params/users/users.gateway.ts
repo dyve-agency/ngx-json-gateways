@@ -10,6 +10,8 @@ export class UsersGateway {
   constructor(private readonly _httpClient: HttpClient, @Inject(API_HOST) private readonly _apiHost: string) {}
 
   getUsers(options?: Parameters<HttpClient['request']>[2]): Observable<HttpResponse<GetUsersResponse>> {
-    return this._httpClient.request('get', this._apiHost + '/users', options);
+    return this._httpClient.request('get', this._apiHost + '/users', {
+      ...options,
+    });
   }
 }

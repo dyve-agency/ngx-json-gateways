@@ -19,6 +19,8 @@ const integrationTests = [
   ['without-refs', 'simple-post-without-params'],
   ['without-refs', 'simple-get-with-query-params'],
   ['without-refs', 'simple-get-with-url-params'],
+  ['without-refs', 'simple-put-with-url-params'],
+  ['without-refs', 'simple-get-with-url-and-query-params'],
 ];
 
 describe('Integration', () => {

@@ -1,12 +1,12 @@
 {
   "$schema": "http://json-schema.org/draft-04/hyper-schema",
-  "id": "simple-get-with-query-params",
+  "id": "simple-put-with-url-params",
   "properties": {
-    "get_users": {
+    "post_users": {
       "links": [{
         "href": "/users/{id}/{id2}",
-        "method": "GET",
-        "rel": "instances",
+        "method": "PUT",
+        "rel": "edit",
         "hrefSchema": {
           "properties": {
             "id": {
@@ -14,6 +14,16 @@
             },
             "id2": {
               "type": "integer"
+            }
+          }
+        },
+        "schema": {
+          "type": "object",
+          "required": ["name"],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string"
             }
           }
         },

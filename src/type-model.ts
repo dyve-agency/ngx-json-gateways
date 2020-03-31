@@ -12,6 +12,7 @@ export interface InterpolatedHref {
   href: string;
   simplifiedHref: string;
   typescriptHref: string;
+  schema?: JSONSchema4;
 }
 
 export interface GatewayOperation {
