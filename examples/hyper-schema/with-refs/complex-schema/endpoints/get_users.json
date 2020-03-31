@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/hyper-schema",
+  "id": "https://example.com/users_api/endpoints/get_users",
+  "definitions": {
+    "get_users": {
+      "links": [{
+        "href": "/users/{id}/{id2}",
+        "method": "GET",
+        "rel": "instances",
+        "hrefSchema": {
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "id2": {
+              "type": "integer"
+            }
+          }
+        },
+        "targetSchema": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }]
+    }
+  }
+}

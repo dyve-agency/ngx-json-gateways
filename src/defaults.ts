@@ -81,6 +81,7 @@ export function scopeByResource(generated: GeneratedCode): string[] {
 
 export const defaultOptions: GeneratorOptions = {
   moduleName: 'ApiModule',
+  localSources: [],
   json2ts: {
     ...DEFAULT_OPTIONS,
     bannerComment: '',

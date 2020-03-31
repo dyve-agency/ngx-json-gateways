@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "https://example.com/users_api/transfer_objects/user#",
+  "definitions": {
+    "user": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "$ref": "https://example.com/users_api/definitions/fancy-string#definitions/fancy-string"
+        }
+      }
+    }
+  }
+}

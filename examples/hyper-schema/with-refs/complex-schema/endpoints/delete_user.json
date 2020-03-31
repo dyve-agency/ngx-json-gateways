@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/hyper-schema",
+  "id": "https://example.com/users_api/endpoints/delete_user",
+  "definitions": {
+    "delete_user": {
+      "links": [{
+        "href": "/users/{id}/{id2}",
+        "method": "DELETE",
+        "rel": "edit",
+        "hrefSchema": {
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "id2": {
+              "type": "integer"
+            }
+          }
+        }
+      }]
+    }
+  }
+}

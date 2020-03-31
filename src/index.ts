@@ -1,5 +1,7 @@
+import {sync as glob} from 'glob';
+import {FileInfo, ResolverOptions, dereference} from 'json-schema-ref-parser';
 import {defaultOptions} from './defaults';
-import {FileWithContent, readHyperSchema, writeOutFiles} from './file-io';
+import {FileWithContent, readHyperSchema, readSchema, writeOutFile, writeOutFiles} from './file-io';
 import {generateApiHostInjectionToken, generateApiModule} from './generators/additional';
 import {generateGatewayClassSource} from './generators/gateway-classes';
 import {generateTransferObjectClassSource} from './generators/transfer-objects';
@@ -10,6 +12,58 @@ import {buildGatewayClass} from './preprocessing';
 import {GatewayClass} from './type-model';
 import {HyperSchema4} from './types/hyper-schema';
 
+export class LocalHttpResolver implements ResolverOptions {
+  order = 1;
+
+  constructor(private _filesByUrls: Record<string, string>) {
+  }
+
+  canRead = (file: FileInfo) => {
+    return !!this._filesByUrls[file.url];
+  };
+  read = (file: FileInfo) => {
+    const schema = this._filesByUrls[file.url];
+
+    if(schema) return schema;
+
+    throw new Error('Schema not found');
+  };
+
+  static async forFiles(files: string[]): Promise<LocalHttpResolver> {
+    const promises = files.map(async(file) => {
+      const schema = await readSchema(file);
+
+      const id = schema.id && schema.id.endsWith('#') ? schema.id.slice(0, -2) : schema.id;
+      return [id, JSON.stringify(schema)];
+    });
+
+    const fileContentsById = await Promise.all(promises);
+
+    return new LocalHttpResolver(Object.fromEntries(fileContentsById));
+  }
+}
+
+export async function generateResolvedSchema(
+  schemaFile: string,
+  outDir: string,
+  outFile: string,
+  localSources: string[],
+): Promise<void> {
+  const schema = await readHyperSchema(schemaFile);
+
+  const resolved = await resolveRefs(schema, localSources);
+
+  return await writeOutFile(outDir, {name: outFile, extension: 'json', path: [], content: JSON.stringify(resolved, null, 2)});
+}
+
+export async function resolveRefs(schema: HyperSchema4, localSources: string[]): Promise<HyperSchema4> {
+  const files = localSources.flatMap((source) => glob(source));
+  const resolver = await LocalHttpResolver.forFiles(files);
+
+  // @ts-ignore
+  return await dereference(schema, {resolve: {http: false, locale: resolver}});
+}
+
 export async function generateGatewayFiles(
   hyperSchemaFile: string,
   outDir: string,
@@ -17,7 +71,9 @@ export async function generateGatewayFiles(
 ): Promise<void> {
   const hyperSchema = await readHyperSchema(hyperSchemaFile);
 
-  const files = await generateGateways(hyperSchema, options);
+  const combined = await resolveRefs(hyperSchema, options.localSources);
+
+  const files = await generateGateways(combined, options);
   await writeOutFiles(outDir, files);
 }
 
@@ -51,7 +107,11 @@ export async function generateGateways(
   }
 
   generatedClasses.push(
-    generateApiModule(options.moduleName, apiHostToken, generatedClasses.filter((c) => c.type === 'gateway') as GeneratedGatewayClass[])
+    generateApiModule(
+      options.moduleName,
+      apiHostToken,
+      generatedClasses.filter((c) => c.type === 'gateway') as GeneratedGatewayClass[],
+    ),
   );
 
   return buildFileSet(options, generatedClasses);
@@ -68,6 +128,7 @@ export function buildFileSet(
       path: targetPath,
       name: options.buildFileName(gateway.nameOfClass),
       content: combineSourceWithImports(options, gateway, targetPath),
+      extension: 'ts',
     };
   });
 }

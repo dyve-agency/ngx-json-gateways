@@ -1,3 +1,5 @@
+const jest = require('jest');
+
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
@@ -8,5 +10,6 @@ module.exports = {
   },
   watchPathIgnorePatterns: [
     'tmp\/'
-  ]
+  ],
+  testTimeout: 1000000,
 };
