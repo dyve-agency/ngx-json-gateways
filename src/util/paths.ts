@@ -37,3 +37,7 @@ export function relativePath(from: string, to: string): string {
 
   return to.startsWith('../') ? to : './' + to;
 }
+
+export function stripInterpolations(href: string): string {
+  return href.split('/').filter((x) => !x.includes('{')).join('/');
+}

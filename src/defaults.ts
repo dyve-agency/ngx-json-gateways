@@ -5,7 +5,7 @@ import {GeneratorOptions} from './options';
 import {HyperSchemaLink4, HyperSchemaResource4} from './types/hyper-schema';
 import {getCommonHref} from './util/hyper-schema';
 import {assertDefined, inspect} from './util/misc';
-import {stripCommonPath} from './util/paths';
+import {stripCommonPath, stripInterpolations} from './util/paths';
 import {upperFirst} from './util/strings';
 
 export function pathToCapitalizedNameParts(path: string): string[] {
@@ -28,10 +28,6 @@ export function httpVerbAndHrefBasedMethodName(
   const localHref = stripCommonPath(href, commonHref);
 
   return [prefix, ...pathToCapitalizedNameParts(localHref)].join('');
-}
-
-function stripInterpolations(href: string): string {
-  return href.split('/').filter((x) => !x.includes('{')).join('/');
 }
 
 export function commonHrefBasedClassName(resource: HyperSchemaResource4): string {
