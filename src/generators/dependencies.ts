@@ -7,6 +7,7 @@ export function getImport(options: GeneratorOptions, dependency: Dependency, tar
     case 'external':
       return [dependency.name, dependency.source];
     case 'code':
+    case 'gateway':
     case 'transfer-object':
       const localPath = targetPath.join('/');
       const fileName = options.buildFileName(dependency.nameOfClass);

@@ -105,6 +105,7 @@ export function scopeByResource(generated: GeneratedCode): string[] {
 }
 
 export const defaultOptions: GeneratorOptions = {
+  moduleName: 'ApiModule',
   json2ts: {
     ...DEFAULT_OPTIONS,
     bannerComment: '',

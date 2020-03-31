@@ -20,8 +20,8 @@ export interface GeneratedGatewayClass extends GeneratedType {
   source: GatewayClass;
 }
 
-export type Dependency = ExternalDependency | GeneratedTransferObject | GeneratedAdditional;
 export type GeneratedCode = GeneratedAdditional | GeneratedTransferObject | GeneratedGatewayClass;
+export type Dependency = ExternalDependency | GeneratedCode;
 
 export interface GeneratedType {
   readonly dependencies: Dependency[];

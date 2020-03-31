@@ -1,9 +1,9 @@
 import {defaultOptions} from './defaults';
 import {FileWithContent, readHyperSchema, writeOutFiles} from './file-io';
-import {generateApiHostInjectionToken} from './generators/additional';
+import {generateApiHostInjectionToken, generateApiModule} from './generators/additional';
 import {generateGatewayClassSource} from './generators/gateway-classes';
 import {generateTransferObjectClassSource} from './generators/transfer-objects';
-import {GeneratedCode} from './generators/types';
+import {GeneratedCode, GeneratedGatewayClass} from './generators/types';
 import {combineSourceWithImports} from './generators/util';
 import {GeneratorOptions} from './options';
 import {buildGatewayClass} from './preprocessing';
@@ -49,6 +49,10 @@ export async function generateGateways(
       }
     }
   }
+
+  generatedClasses.push(
+    generateApiModule(options.moduleName, apiHostToken, generatedClasses.filter((c) => c.type === 'gateway') as GeneratedGatewayClass[])
+  );
 
   return buildFileSet(options, generatedClasses);
 }
