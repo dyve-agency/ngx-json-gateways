@@ -1,4 +1,4 @@
-import {paramCase} from 'change-case';
+import {capitalCase, paramCase} from 'change-case';
 import {DEFAULT_OPTIONS} from 'json-schema-to-typescript';
 import {GeneratedCode} from './generators/types';
 import {GeneratorOptions} from './options';
@@ -6,8 +6,7 @@ import {HyperSchemaLink4, HyperSchemaResource4} from './types/hyper-schema';
 import {getCommonHref} from './util/hyper-schema';
 import {assertDefined, inspect} from './util/misc';
 import {stripCommonPath} from './util/paths';
-import {capitalize, upperFirst} from './util/strings';
-import {capitalCase} from 'change-case';
+import {upperFirst} from './util/strings';
 
 export function pathToCapitalizedNameParts(path: string): string[] {
   return path
@@ -64,26 +63,6 @@ export function methodNameBasedRequestTypeName(
 ): string {
   const methodName = httpVerbAndHrefBasedMethodName(resource, key, link, simplifiedHref);
   return upperFirst(methodName) + 'Request';
-}
-
-export function methodNameBasedParamsTypeName(
-  resource: HyperSchemaResource4,
-  key: string,
-  link: HyperSchemaLink4,
-  simplifiedHref: string,
-): string {
-  const methodName = httpVerbAndHrefBasedMethodName(resource, key, link, simplifiedHref);
-  return upperFirst(methodName) + 'Params';
-}
-
-export function methodNameBasedQueryParamsTypeName(
-  resource: HyperSchemaResource4,
-  simplifiedHref: string,
-  key: string,
-  link: HyperSchemaLink4,
-): string {
-  const methodName = httpVerbAndHrefBasedMethodName(resource, key, link, simplifiedHref);
-  return upperFirst(methodName) + 'QueryParams';
 }
 
 export function kebapizedClassName(nameOfClass: string): string {
