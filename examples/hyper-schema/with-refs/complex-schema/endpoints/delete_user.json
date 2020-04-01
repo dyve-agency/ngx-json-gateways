@@ -4,7 +4,7 @@
   "definitions": {
     "delete_user": {
       "links": [{
-        "href": "/users/{id}/{id2}",
+        "href": "/users_api/users/{id}/{id2}",
         "method": "DELETE",
         "rel": "edit",
         "hrefSchema": {

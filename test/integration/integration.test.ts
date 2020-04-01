@@ -35,6 +35,7 @@ describe('Generation', () => {
 
     await fs.rmdir(output, {recursive: true});
     await fs.mkdir(output, {recursive: true});
+    await fs.mkdir(expectedFiles, {recursive: true});
 
     await generateGatewayFiles(input, output, {...defaultOptions, localSources: [localSource]});
 

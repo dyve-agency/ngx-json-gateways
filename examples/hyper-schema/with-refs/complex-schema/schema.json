@@ -9,6 +9,9 @@
     "get_users": {
       "$ref": "https://example.com/users_api/endpoints/get_users#/definitions/get_users"
     },
+    "get_groups": {
+      "$ref": "https://example.com/users_api/endpoints/get_groups#/definitions/get_groups"
+    },
     "post_users": {
       "$ref": "https://example.com/users_api/endpoints/post_users#/definitions/post_users"
     },

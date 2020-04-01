@@ -33,7 +33,7 @@ export class LocalHttpResolver implements ResolverOptions {
     const promises = files.map(async(file) => {
       const schema = await readSchema(file);
 
-      const id = schema.id && schema.id.endsWith('#') ? schema.id.slice(0, -2) : schema.id;
+      const id = schema.id && schema.id.endsWith('#') ? schema.id.slice(0, -1) : schema.id;
       return [id, JSON.stringify(schema)];
     });
 
@@ -75,13 +75,15 @@ export async function generateGatewayFiles(
 
   const files = await generateGateways(combined, options);
   await writeOutFiles(outDir, files);
+
+  console.log(`Generated Angular gateways and ${options.moduleName} in ${outDir}`);
 }
 
 export async function generateGateways(
   hyperSchema: HyperSchema4,
   options: GeneratorOptions = defaultOptions,
 ): Promise<FileWithContent[]> {
-  const gatewayClasses: GatewayClass[] = Object.entries(hyperSchema.properties)
+  const gatewayClasses: GatewayClass[] = Object.entries(options.preprocessSchema(hyperSchema).properties)
     .map(([key, resource]) => buildGatewayClass(options, resource, key));
 
   const apiHostToken = generateApiHostInjectionToken();

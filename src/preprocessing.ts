@@ -12,6 +12,7 @@ export function buildGatewayClass(
   return {
     nameOfClass: options.buildGatewayClassName(resource, key),
     resource,
+    key,
     operations: resource.links.map((link) => buildGatewayOperation(options, resource, key, link)),
   };
 }
@@ -30,6 +31,7 @@ export function buildRequestType(
     schema: link.schema,
     resource,
     link,
+    resourceKey: key,
   };
 }
 
@@ -47,6 +49,7 @@ export function buildResponseType(
     schema: link.targetSchema,
     resource,
     link,
+    resourceKey: key,
   };
 }
 
@@ -58,18 +61,18 @@ export function buildInterpolatedHref(href: string, hrefSchema?: JSONSchema4 | u
   };
 
   if(!hrefSchema || !hrefSchema.properties) {
-    throw `Interpolated href ${href} is missing schema`;
+    throw `Interpolated href ${href} is missing hrefSchema`;
   }
 
-  const interpolatedArgs = Array.from(href.match(/{(\w+)}/g) || []).map((arg) => arg.replace(/[{}]/g, ''));
+  const interpolatedArgs = Array.from(href.match(/{([\w_]+)}/g) || []).map((arg) => arg.replace(/[{}]/g, ''));
   for (let arg of interpolatedArgs) {
     if(!hrefSchema.properties[arg]) {
       throw `Schema for interpolated href ${href} is missing ${arg}`;
     }
   }
 
-  const simplifiedHref = href.replace(/{(\w+)}/g, 'by-$1');
-  const typescriptHref = '`' + href.replace(/({\w+})/g, '$$$1') + '`';
+  const simplifiedHref = href.replace(/{([\w_]+)}/g, 'by-$1'); //.replace(/[^\w-]+/g, '');
+  const typescriptHref = '`' + href.replace(/({[\w_]+})/g, '$$$1') + '`';
 
   return {
     href,

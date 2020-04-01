@@ -6,8 +6,15 @@ export async function generateTransferObjectClassSource(
   response: TransferObjectDescriptor,
   options: Partial<Options>,
 ): Promise<GeneratedTransferObject> {
+  // Workaround, because json-schema-to-typescript ignores given name
+  // if title is present.
+  const patchedSchema = {
+    ...response.schema,
+    title: response.nameOfClass,
+  };
+
   const responseTypeDef = await compile(
-    response.schema,
+    patchedSchema,
     response.nameOfClass,
     options,
   );

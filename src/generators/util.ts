@@ -8,12 +8,15 @@ export function formatCode(options: GeneratorOptions, code: string): string {
   return format(code, {...DEFAULT_OPTIONS, ...options.json2ts});
 }
 
+export const BANNER = `/* tslint:disable */
+`;
+
 export function combineSourceWithImports(
   options: GeneratorOptions,
   generated: GeneratedType,
   targetPath: string[],
 ): string {
-  return formatCode(
+  return BANNER + formatCode(
     options,
     generateAllImports(options, generated.dependencies, targetPath) + generated.generatedSource,
   );

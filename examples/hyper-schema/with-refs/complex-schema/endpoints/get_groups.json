@@ -1,19 +1,19 @@
 {
   "$schema": "http://json-schema.org/draft-04/hyper-schema",
-  "id": "https://example.com/users_api/endpoints/post_users",
+  "id": "https://example.com/users_api/endpoints/get_groups",
   "definitions": {
-    "post_users": {
+    "get_groups": {
       "links": [{
-        "href": "/users_api/users",
-        "method": "POST",
-        "rel": "create",
-        "schema": {
-          "type": "object",
-          "required": ["name"],
-          "additionalProperties": false,
+        "href": "/users_api/groups/{id}/{id2}",
+        "method": "GET",
+        "rel": "instances",
+        "hrefSchema": {
           "properties": {
-            "name": {
-              "type": "string"
+            "id": {
+              "type": "integer"
+            },
+            "id2": {
+              "type": "integer"
             }
           }
         },

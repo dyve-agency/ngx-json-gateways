@@ -6,6 +6,7 @@ export interface TransferObjectDescriptor {
   schema: JSONSchema4;
   resource: HyperSchemaResource4;
   link: HyperSchemaLink4;
+  resourceKey: string;
 }
 
 export interface InterpolatedHref {
@@ -27,7 +28,8 @@ export interface GatewayOperation {
 }
 
 export interface GatewayClass {
-  nameOfClass: string;
+  readonly nameOfClass: string;
   readonly resource: HyperSchemaResource4;
+  readonly key: string;
   readonly operations: GatewayOperation[];
 }

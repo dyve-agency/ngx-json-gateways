@@ -1,6 +1,6 @@
 import {Options} from 'json-schema-to-typescript';
 import {GeneratedCode} from './generators/types';
-import {HyperSchemaLink4, HyperSchemaResource4} from './types/hyper-schema';
+import {HyperSchema4, HyperSchemaLink4, HyperSchemaResource4} from './types/hyper-schema';
 
 export interface GeneratorOptions {
   localSources: string[];
@@ -12,4 +12,5 @@ export interface GeneratorOptions {
   buildRequestClassName(resource: HyperSchemaResource4, key: string, link: HyperSchemaLink4, simplifiedHref: string): string;
   buildFileName(nameOfClass: string): string;
   getTargetPath(generated: GeneratedCode): string[];
+  preprocessSchema(schema: HyperSchema4): HyperSchema4;
 }
