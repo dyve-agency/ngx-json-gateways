@@ -107,7 +107,7 @@ export function groupIntoOneResource(schema: HyperSchema4): HyperSchema4 {
 }
 
 export const defaultOptions: GeneratorOptions = {
-  moduleName: 'ApiModule',
+  moduleName: 'Api',
   localSources: [],
   json2ts: {
     ...DEFAULT_OPTIONS,
