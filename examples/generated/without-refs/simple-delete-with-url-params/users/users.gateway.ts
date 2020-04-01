@@ -16,6 +16,7 @@ export class UsersGateway {
   ): Observable<HttpResponse<void>> {
     return this._httpClient.request('delete', this._apiHost + `/users/${id}/${id2}`, {
       ...options,
+      observe: 'response',
     });
   }
 }

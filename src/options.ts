@@ -5,6 +5,7 @@ import {HyperSchema4, HyperSchemaLink4, HyperSchemaResource4} from './types/hype
 export interface GeneratorOptions {
   localSources: string[];
   json2ts: Partial<Options>;
+  returnType: 'response' | 'body',
   moduleName: string;
   schemaFile?: string;
   buildOperationMethodName(resource: HyperSchemaResource4, key: string, link: HyperSchemaLink4, simplifiedHref: string): string;

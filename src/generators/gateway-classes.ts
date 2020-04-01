@@ -9,7 +9,7 @@ export async function generateGatewayClassSource(
   apiHostToken: GeneratedAdditional,
   options: GeneratorOptions,
 ): Promise<GeneratedGatewayClass> {
-  const methodSources = gatewayClass.operations.map((operation) => generateOperationMethodSource(operation));
+  const methodSources = gatewayClass.operations.map((operation) => generateOperationMethodSource(operation, options));
   const gatewaySource = `
     @Injectable()
     export class ${gatewayClass.nameOfClass} {

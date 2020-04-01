@@ -1,4 +1,5 @@
 import {JSONSchema4} from 'json-schema';
+import {GeneratorOptions} from '../options';
 import {GatewayOperation} from '../type-model';
 import {inspect} from '../util/misc';
 
@@ -72,8 +73,12 @@ function createInterpolationParamType(def: JSONSchema4): string {
   return tsTypes.join(' | ');
 }
 
-export function generateOperationMethodSource(operation: GatewayOperation): string {
-  const returnType = `Observable<HttpResponse<${operation.response?.nameOfClass || 'void'}>>`;
+export function generateOperationMethodSource(operation: GatewayOperation, options: GeneratorOptions): string {
+  let returnPayload = operation.response?.nameOfClass || 'void';
+  if (options.returnType === 'response') {
+    returnPayload = `HttpResponse<${returnPayload}>`;
+  }
+  const returnType = `Observable<${returnPayload}>`;
   const httpVerb = JSON.stringify(operation.httpVerb);
   const href = 'this._apiHost + ' + operation.href.typescriptHref;
 
@@ -82,7 +87,7 @@ export function generateOperationMethodSource(operation: GatewayOperation): stri
     href,
     httpVerb,
     returnType,
-    options: [],
+    options: [{key: 'observe', value: JSON.stringify(options.returnType)}],
     args: [],
   };
 
@@ -97,7 +102,10 @@ export function generateOperationMethodSource(operation: GatewayOperation): stri
   if (operation.request) {
     if (BODYLESS_VERBS.includes(operation.httpVerb)) {
       methodDefinition.args.push({name: 'queryParams', type: operation.request.nameOfClass, required: true});
-      methodDefinition.options.push({key: 'params', value: 'queryParams as unknown as { [param: string]: string | string[]; }'});
+      methodDefinition.options.push({
+        key: 'params',
+        value: 'queryParams as unknown as { [param: string]: string | string[]; }',
+      });
     } else {
       methodDefinition.args.push({name: 'body', type: operation.request.nameOfClass, required: true});
       methodDefinition.options.push({key: 'body', value: 'body'});

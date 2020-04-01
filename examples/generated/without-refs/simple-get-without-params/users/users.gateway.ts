@@ -13,6 +13,7 @@ export class UsersGateway {
   getUsers(options?: Parameters<HttpClient['request']>[2]): Observable<HttpResponse<GetUsersResponse>> {
     return this._httpClient.request('get', this._apiHost + '/users', {
       ...options,
+      observe: 'response',
     });
   }
 }

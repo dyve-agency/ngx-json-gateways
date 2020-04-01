@@ -17,6 +17,7 @@ export class UsersGateway {
   ): Observable<HttpResponse<GetUsersResponse>> {
     return this._httpClient.request('get', this._apiHost + '/users', {
       ...options,
+      observe: 'response',
       params: (queryParams as unknown) as { [param: string]: string | string[] },
     });
   }

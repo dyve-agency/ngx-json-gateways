@@ -20,6 +20,7 @@ export class UsersApiGateway {
   ): Observable<HttpResponse<GetUsersByIdById2Response>> {
     return this._httpClient.request('get', this._apiHost + `/users_api/users/${id}/${id2}`, {
       ...options,
+      observe: 'response',
     });
   }
 
@@ -30,6 +31,7 @@ export class UsersApiGateway {
   ): Observable<HttpResponse<GetGroupsByIdById2Response>> {
     return this._httpClient.request('get', this._apiHost + `/users_api/groups/${id}/${id2}`, {
       ...options,
+      observe: 'response',
     });
   }
 
@@ -39,6 +41,7 @@ export class UsersApiGateway {
   ): Observable<HttpResponse<PostUsersResponse>> {
     return this._httpClient.request('post', this._apiHost + '/users_api/users', {
       ...options,
+      observe: 'response',
       body,
     });
   }
@@ -50,6 +53,7 @@ export class UsersApiGateway {
   ): Observable<HttpResponse<void>> {
     return this._httpClient.request('delete', this._apiHost + `/users_api/users/${id}/${id2}`, {
       ...options,
+      observe: 'response',
     });
   }
 }

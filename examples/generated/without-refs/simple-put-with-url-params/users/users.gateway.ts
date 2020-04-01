@@ -19,6 +19,7 @@ export class UsersGateway {
   ): Observable<HttpResponse<PutUsersByIdById2Response>> {
     return this._httpClient.request('put', this._apiHost + `/users/${id}/${id2}`, {
       ...options,
+      observe: 'response',
       body,
     });
   }

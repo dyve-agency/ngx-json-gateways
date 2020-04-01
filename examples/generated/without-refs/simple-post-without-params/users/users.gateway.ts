@@ -17,6 +17,7 @@ export class UsersGateway {
   ): Observable<HttpResponse<PostUsersResponse>> {
     return this._httpClient.request('post', this._apiHost + '/users', {
       ...options,
+      observe: 'response',
       body,
     });
   }
