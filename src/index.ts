@@ -110,7 +110,7 @@ export async function generateGateways(
 
   generatedClasses.push(
     generateApiModule(
-      options.moduleName,
+      options.moduleName + 'Module',
       apiHostToken,
       generatedClasses.filter((c) => c.type === 'gateway') as GeneratedGatewayClass[],
     ),
