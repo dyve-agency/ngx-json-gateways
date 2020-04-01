@@ -1,5 +1,5 @@
 /* tslint:disable */
-export type PutUsersByIdById2Response = {
+export type GetGroupsByIdById2Response = {
   id?: number;
   name: string;
 }[];

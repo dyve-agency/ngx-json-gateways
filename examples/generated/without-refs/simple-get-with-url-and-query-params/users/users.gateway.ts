@@ -1,3 +1,4 @@
+/* tslint:disable */
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { HttpResponse } from '@angular/common/http';

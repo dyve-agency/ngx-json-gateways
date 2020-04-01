@@ -1,0 +1,142 @@
+{
+  "$schema": "http://json-schema.org/draft-04/hyper-schema",
+  "title": "Users API",
+  "description": "",
+  "type": [
+    "object"
+  ],
+  "properties": {
+    "get_users": {
+      "links": [
+        {
+          "href": "/users_api/users/{id}/{id2}",
+          "method": "GET",
+          "rel": "instances",
+          "hrefSchema": {
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "id2": {
+                "type": "integer"
+              }
+            }
+          },
+          "targetSchema": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "name"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "get_groups": {
+      "links": [
+        {
+          "href": "/users_api/groups/{id}/{id2}",
+          "method": "GET",
+          "rel": "instances",
+          "hrefSchema": {
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "id2": {
+                "type": "integer"
+              }
+            }
+          },
+          "targetSchema": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "name"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "post_users": {
+      "links": [
+        {
+          "href": "/users_api/users",
+          "method": "POST",
+          "rel": "create",
+          "schema": {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "targetSchema": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "name"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "delete_user": {
+      "links": [
+        {
+          "href": "/users_api/users/{id}/{id2}",
+          "method": "DELETE",
+          "rel": "edit",
+          "hrefSchema": {
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "id2": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
