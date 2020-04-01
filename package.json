@@ -1,6 +1,6 @@
 {
   "name": "@zeit-dev/ngx-json-gateways",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "scripts": {
     "publish-dist": "npm publish --access public",

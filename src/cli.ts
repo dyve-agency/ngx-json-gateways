@@ -1,49 +1,54 @@
+import {paramCase} from 'change-case';
 import * as yargs from 'yargs';
 import {defaultOptions} from './defaults';
 import {generateGatewayFiles} from './index';
+import {GeneratorOptions} from './options';
 
 interface Arguments {
   [x: string]: unknown;
 
   _: string[];
-  module: string;
   schema: string;
   out: string;
-  source: string[];
+  config?: string;
 }
 
 const cliArgs = yargs
-  .usage('Usage: $0 generate hyperschema.json -o frontend/backend-api -m BackendApi')
+  .usage('Usage: $0 generate -c json-gateways.config.js -o backend')
   .demandCommand(1)
-  .command('generate [schema]', 'generate api client module for given schema', (generate) => {
+  .command('generate', 'generate api client modules', (generate) => {
     generate
-      .option('module', {
-        alias: 'm',
-        type: 'string',
-        description: 'Name of angular module to generate',
-        demandOption: true,
-      })
       .option('out', {
         alias: 'o',
         type: 'string',
         description: 'Output directory',
-        demandOption: true,
       })
-      .option('source', {
-        alias: 's',
-        type: 'array',
-        description: 'Directories with referenced schema files',
+      .option('config', {
+        alias: 'c',
+        type: 'string',
+        description: 'Config file',
       });
   });
 
 const argv = cliArgs.argv as unknown as Arguments;
 
-const moduleName = argv.module + 'Module';
-const schemaFile = argv.schema;
 const outDir = argv.out;
 
 async function run() {
-  await generateGatewayFiles(schemaFile, outDir, {...defaultOptions, moduleName, localSources: argv.source});
+  let configs = (argv.config ? require(process.cwd() + '/' + argv.config) as [] : [defaultOptions]) as GeneratorOptions [];
+
+  for (let config of configs) {
+    let options = {
+      ...defaultOptions,
+      ...config,
+    };
+    const dir = outDir + '/' + paramCase(options.moduleName);
+
+    if (!config.schemaFile) {
+      throw 'Missing schema file';
+    }
+    await generateGatewayFiles(config.schemaFile, dir, options);
+  }
 }
 
 run();

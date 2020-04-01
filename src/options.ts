@@ -6,6 +6,7 @@ export interface GeneratorOptions {
   localSources: string[];
   json2ts: Partial<Options>;
   moduleName: string;
+  schemaFile?: string;
   buildOperationMethodName(resource: HyperSchemaResource4, key: string, link: HyperSchemaLink4, simplifiedHref: string): string;
   buildGatewayClassName(resource: HyperSchemaResource4, key: string): string;
   buildResponseClassName(resource: HyperSchemaResource4, key: string, link: HyperSchemaLink4, simplifiedHref: string): string;
