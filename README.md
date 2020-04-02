@@ -1,6 +1,9 @@
 ngx-json-gateways
 =================
 
+![CI](https://github.com/zeitdev/ngx-json-gateways/workflows/CI/badge.svg)
+![npm](https://img.shields.io/npm/v/@zeit-dev/ngx-json-gateways)
+
 Generate Angular gateways (api client classes) from [JSON Hyper-Schemas](https://json-schema.org/draft/2019-09/json-schema-hypermedia.html)
 
 * Generate fully and strictly typed typescript classes for your schemas.
