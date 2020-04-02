@@ -13,6 +13,7 @@
     "ngx-json-gateways": "dist/cli.js"
   },
   "repository": "https://github.com/zeitdev/ngx-json-gateways",
+  "bugs": "https://github.com/zeitdev/ngx-json-gateways/issues",
   "author": "Marian Theisen <mt@zeit.dev>",
   "license": "MIT",
   "private": false,

@@ -130,6 +130,6 @@ export const defaultOptions: GeneratorOptions = {
   buildResponseClassName: methodNameBasedResponseTypeName,
   buildRequestClassName: methodNameBasedRequestTypeName,
   buildFileName: kebapizedClassName,
-  getTargetPath: scopeByResource,
+  getTargetPath: ({}) => [],
   preprocessSchema: groupIntoOneResource,
 };
