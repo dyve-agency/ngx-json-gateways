@@ -22,7 +22,7 @@
   ],
   "devDependencies": {
     "@angular/common": "^9.1.0",
-    "@angular/core": "^9.1.0",
+    "@angular/core": "^11.0.5",
     "@types/jest": "^25.1.4",
     "@types/json-schema": "^7.0.4",
     "dir-compare": "^2.2.0",
